@@ -75,7 +75,8 @@
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "build": "NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
-    "builddev": "react-scripts build",
+    "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
