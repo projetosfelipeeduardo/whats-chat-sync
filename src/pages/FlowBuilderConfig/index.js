@@ -30,6 +30,8 @@ import questionNode from "./nodes/questionNode";
 import RemoveEdge from "./nodes/removeEdge";
 import singleBlockNode from "./nodes/singleBlockNode";
 import ticketNode from "./nodes/ticketNode";
+import conditionNode from "./nodes/conditionNode";
+import tagNode from "./nodes/tagNode";
 
 import api from "../../services/api";
 
@@ -76,6 +78,7 @@ import FlowBuilderSingleBlockModal from "../../components/FlowBuilderSingleBlock
 import FlowBuilderTypebotModal from "../../components/FlowBuilderAddTypebotModal";
 import FlowBuilderOpenAIModal from "../../components/FlowBuilderAddOpenAIModal";
 import FlowBuilderAddQuestionModal from "../../components/FlowBuilderAddQuestionModal";
+import FlowBuilderTagModal from "../../components/FlowBuilderTagModal";
 
 import {
   AccessTime,
@@ -133,6 +136,8 @@ const nodeTypes = {
   typebot: typebotNode,
   openai: openaiNode,
   question: questionNode,
+  condition: conditionNode,
+  tag: tagNode,
 };
 
 const edgeTypes = {
@@ -175,6 +180,8 @@ const FlowBuilderConfig = () => {
   const [modalAddTypebot, setModalAddTypebot] = useState(null);
   const [modalAddOpenAI, setModalAddOpenAI] = useState(null);
   const [modalAddQuestion, setModalAddQuestion] = useState(null);
+  const [modalAddCondition, setModalAddCondition] = useState(null);
+  const [modalAddTag, setModalAddTag] = useState(null);
 
   const connectionLineStyle = { stroke: "#2b2b2b", strokeWidth: "6px" };
 
@@ -376,6 +383,24 @@ const FlowBuilderConfig = () => {
         ];
       });
     }
+    
+    if (type === "tag") {
+      return setNodes((old) => {
+        return [
+          ...old,
+          {
+            id: geraStringAleatoria(30),
+            position: { x: posX, y: posY },
+            data: { 
+              tagId: data.tagId,
+              tagName: data.tagName,
+              action: data.action
+            },
+            type: "tag",
+          },
+        ];
+      });
+    }
   };
 
   const textAdd = (data) => {
@@ -428,6 +453,10 @@ const FlowBuilderConfig = () => {
 
   const questionAdd = (data) => {
     addNode("question", data);
+  };
+
+  const tagAdd = (data) => {
+    addNode("tag", data);
   };
 
   const loadMore = () => {
@@ -499,6 +528,12 @@ const FlowBuilderConfig = () => {
     if (node.type === "question") {
       setModalAddQuestion("edit");
     }
+    if (node.type === "condition") {
+      setModalAddCondition("edit");
+    }
+    if (node.type === "tag") {
+      setModalAddTag("edit");
+    }
   };
 
   const clickNode = (event, node) => {
@@ -543,6 +578,8 @@ const FlowBuilderConfig = () => {
     setModalAddMenu(null);
     setModalAddOpenAI(null);
     setModalAddTypebot(null);
+    setModalAddCondition(null);
+    setModalAddTag(null);
   };
 
   const actions = [
@@ -650,6 +687,24 @@ const FlowBuilderConfig = () => {
       name: "Pergunta",
       type: "question",
     },
+    {
+      icon: (
+        <CallSplit
+          sx={{
+            color: "#4A90E2",
+          }}
+        />
+      ),
+      name: "Condição",
+      type: "condition",
+    },
+    {
+      icon: (
+        <div style={{ color: "#FF6B6B", fontSize: "24px" }}>🏷️</div>
+      ),
+      name: "Etiqueta",
+      type: "tag",
+    },
   ];
 
   const clickActions = (type) => {
@@ -681,7 +736,13 @@ const FlowBuilderConfig = () => {
         break
       case "question":
         setModalAddQuestion("create");
-        break
+        break;
+      case "condition":
+        setModalAddCondition("create");
+        break;
+      case "tag":
+        setModalAddTag("create");
+        break;
       default:
     }
   };
@@ -838,6 +899,22 @@ const FlowBuilderConfig = () => {
         data={dataNode}
         onUpdate={updateNode}
         close={setModalAddQuestion}
+      />
+
+      <FlowBuilderConditionModal
+        open={modalAddCondition}
+        onSave={conditionAdd}
+        data={dataNode}
+        onUpdate={updateNode}
+        close={setModalAddCondition}
+      />
+
+      <FlowBuilderTagModal
+        open={modalAddTag}
+        onSave={tagAdd}
+        data={dataNode}
+        onUpdate={updateNode}
+        close={setModalAddTag}
       />
 
       <MainHeader>
