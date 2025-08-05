@@ -103,10 +103,25 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     backgroundColor: "#F8F9FA",
     overflowY: "scroll",
+    height: "calc(100vh - 120px)",
+    [theme.breakpoints.down("md")]: {
+      height: "calc(100vh - 140px)",
+      padding: theme.spacing(0.5),
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: "calc(100vh - 160px)",
+      padding: theme.spacing(0.25),
+    },
     ...theme.scrollbarStyles,
   },
   speeddial: {
     backgroundColor: "red",
+    [theme.breakpoints.down("sm")]: {
+      position: "fixed",
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+      zIndex: 1000,
+    },
   },
 }));
 

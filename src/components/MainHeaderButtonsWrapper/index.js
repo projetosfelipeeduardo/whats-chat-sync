@@ -5,9 +5,26 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
 	MainHeaderButtonsWrapper: {
 		flex: "none",
+		display: "flex",
+		alignItems: "center",
+		gap: theme.spacing(1),
+		flexWrap: "wrap",
 		marginLeft: "auto",
-		"& > *": {
-			margin: theme.spacing(1),
+		[theme.breakpoints.down("md")]: {
+			flex: "1",
+			justifyContent: "stretch",
+			marginLeft: 0,
+			"& > *": {
+				flex: "1",
+				minWidth: "200px",
+			},
+		},
+		[theme.breakpoints.down("sm")]: {
+			flexDirection: "column",
+			"& > *": {
+				width: "100%",
+				margin: theme.spacing(0.5, 0),
+			},
 		},
 	},
 }));

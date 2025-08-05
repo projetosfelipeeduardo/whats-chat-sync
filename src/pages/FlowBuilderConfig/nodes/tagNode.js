@@ -22,7 +22,9 @@ export default memo(({ data, isConnectable, id }) => {
         backgroundColor: "#FF6B6B", 
         padding: "8px", 
         borderRadius: "8px",
-        minWidth: "180px"
+        minWidth: "160px",
+        maxWidth: "200px",
+        wordWrap: "break-word"
       }}
     >
       <Handle
@@ -94,7 +96,7 @@ export default memo(({ data, isConnectable, id }) => {
         />
         <div style={{ color: "#ededed", fontSize: "16px" }}>Etiqueta</div>
       </div>
-      <div style={{ color: "#ededed", fontSize: "12px", width: 180 }}>
+      <div style={{ color: "#ededed", fontSize: "12px", width: "100%", maxWidth: 180, wordWrap: "break-word" }}>
         {getActionText(data.action)}: {data.tagName || "Selecione uma tag"}
       </div>
       

@@ -84,6 +84,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 12,
     padding: theme.spacing(1),
     overflowY: "scroll",
+    [theme.breakpoints.down("md")]: {
+      borderRadius: 8,
+      padding: theme.spacing(0.5),
+    },
+    [theme.breakpoints.down("sm")]: {
+      borderRadius: 4,
+      padding: theme.spacing(0.25),
+    },
     ...theme.scrollbarStyles,
   },
 }));
@@ -324,13 +332,13 @@ const FlowBuilder = () => {
       >
         <Stack>
           <Grid container style={{ padding: "8px" }}>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               {i18n.t("contacts.table.name")}
             </Grid>
-            <Grid item xs={4} align="center">
+            <Grid item xs={6} md={4} align="center" sx={{ display: { xs: "none", md: "block" } }}>
               Status
             </Grid>
-            <Grid item xs={4} align="end">
+            <Grid item xs={12} md={4} align="end">
               {i18n.t("contacts.table.actions")}
             </Grid>
           </Grid>
@@ -343,12 +351,17 @@ const FlowBuilder = () => {
                   padding: "8px",
                   borderRadius: 2,
                   marginTop: 0.5,
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 0, 0, 0.04)",
+                  },
                 }}
               >
                 <Grid
                   item
-                  xs={4}
+                  xs={12}
+                  md={4}
                   onClick={() => history.push(`/flowbuilder/${contact.id}`)}
+                  sx={{ cursor: "pointer" }}
                 >
                   <Stack
                     justifyContent={"center"}
@@ -365,16 +378,21 @@ const FlowBuilder = () => {
                 </Grid>
                 <Grid
                   item
-                  xs={4}
+                  xs={6}
+                  md={4}
                   align="center"
                   style={{ color: "#252525" }}
                   onClick={() => history.push(`/flowbuilder/${contact.id}`)}
+                  sx={{ 
+                    cursor: "pointer",
+                    display: { xs: "none", md: "block" }
+                  }}
                 >
                   <Stack justifyContent={"center"} height={"100%"}>
                     {contact.active ? "Ativo" : "Desativado"}
                   </Stack>
                 </Grid>
-                <Grid item xs={4} align="end">
+                <Grid item xs={12} md={4} align="end" sx={{ mt: { xs: 1, md: 0 } }}>
                   <Button
                     id="basic-button"
                     aria-controls={open ? "basic-menu" : undefined}

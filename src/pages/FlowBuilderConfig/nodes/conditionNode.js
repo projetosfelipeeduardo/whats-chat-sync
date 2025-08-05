@@ -29,7 +29,9 @@ export default memo(({ data, isConnectable, id }) => {
         backgroundColor: "#4A90E2", 
         padding: "8px", 
         borderRadius: "8px",
-        minWidth: "180px"
+        minWidth: "160px",
+        maxWidth: "200px",
+        wordWrap: "break-word"
       }}
     >
       <Handle
@@ -101,7 +103,7 @@ export default memo(({ data, isConnectable, id }) => {
         />
         <div style={{ color: "#ededed", fontSize: "16px" }}>Condição</div>
       </div>
-      <div style={{ color: "#ededed", fontSize: "12px", width: 180 }}>
+      <div style={{ color: "#ededed", fontSize: "12px", width: "100%", maxWidth: 180, wordWrap: "break-word" }}>
         {data.key} {getConditionSymbol(data.condition)} {data.value}
       </div>
       
